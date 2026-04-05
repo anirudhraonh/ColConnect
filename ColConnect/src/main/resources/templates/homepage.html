@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Colconnect | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+</head>
+
+<body>
+<!-- Include navbar fragment -->
+<div th:replace="fragments :: navbar"></div>
+
+<hr>
+
+<div th:text="${msg}"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <div th:each="post : ${posts}">
+        <a th:href="@{/post/{title}(title=${post.title})}" style="text-decoration: none;">
+            <img th:src="@{${post.image_url}}" alt="Post image"
+                 style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        </a>
+    </div>
+</div>
+
+<!--<table>-->
+<!--    <tr th:each="post : ${posts}">-->
+<!--        <td>-->
+<!--            <a th:href="@{/post/{title}(title=${post.title})}">-->
+<!--                <img th:src="${post.image_url}">-->
+<!--            </a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<!--<table>-->
+<!--    <tr th:each="row : ${#lists.partition(posts, 5)}">-->
+<!--        <td th:each="post : ${row}">-->
+<!--            <a th:href="@{/post/{id}(id=${post.id})}">-->
+<!--                <img th:src="${post.url}">-->
+<!--            </a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+</body>
+</html>

@@ -1,0 +1,281 @@
+
+        /* ========= 1. Global Reset & Theme ========= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #065f46, #022c22 60%);
+            color: #ecfdf5;
+        }
+
+        /* ========= 2. Navbar (Glass + Depth) ========= */
+        .navbar {
+            background: linear-gradient(
+                to right,
+                rgba(2, 44, 34, 0.92),
+                rgba(6, 78, 59, 0.92)
+            );
+            backdrop-filter: blur(10px);
+            padding: 0.9rem 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.45),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        /* ========= 3. Layout ========= */
+        .nav-left,
+        .nav-right {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-left {
+            gap: 1.2rem;
+        }
+
+        .nav-right {
+            gap: 1.6rem;
+        }
+
+        /* ========= 4. Nav Links ========= */
+        .navbar a {
+            position: relative;
+            text-decoration: none;
+            color: #d1fae5;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            padding: 0.55rem 0.9rem;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+
+        /* underline glow */
+        .navbar a::after {
+            content: "";
+            position: absolute;
+            left: 12%;
+            right: 12%;
+            bottom: 4px;
+            height: 2px;
+            background: linear-gradient(to right, #fbbf24, #facc15);
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+            border-radius: 2px;
+        }
+
+        .navbar a:hover {
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.08);
+        }
+
+        .navbar a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* ========= 5. Welcome Text ========= */
+        .welcome-text {
+            font-size: 0.8rem;
+            color: #6ee7b7;
+            opacity: 0.9;
+        }
+
+        .username-highlight {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        /* ========= 6. Search ========= */
+        .search-wrapper {
+            position: relative;
+            width: 240px;
+        }
+
+        #search {
+            width: 100%;
+            background: rgba(6, 78, 59, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            color: #ecfdf5;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        #search::placeholder {
+            color: #a7f3d0;
+            opacity: 0.7;
+        }
+
+        #search:focus {
+            outline: none;
+            width: 300px;
+            border-color: #fbbf24;
+            background: rgba(6, 78, 59, 0.9);
+            box-shadow:
+                0 0 0 2px rgba(251, 191, 36, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        /* ========= 7. Search Results ========= */
+        #results {
+            position: absolute;
+            top: 115%;
+            right: 0;
+            width: 100%;
+            background: rgba(2, 44, 34, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(5, 150, 105, 0.6);
+            border-radius: 12px;
+            list-style: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55);
+            max-height: 260px;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+
+        /* scrollbar */
+        #results::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #results::-webkit-scrollbar-thumb {
+            background: #059669;
+            border-radius: 10px;
+        }
+
+        #results li a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #d1fae5;
+            font-size: 0.8rem;
+            border-bottom: 1px solid rgba(6, 95, 70, 0.7);
+            transition: all 0.2s ease;
+        }
+
+        #results li:last-child a {
+            border-bottom: none;
+        }
+
+        #results li a:hover {
+            background: rgba(6, 95, 70, 0.8);
+            color: #fbbf24;
+            padding-left: 1.3rem;
+        }
+
+        /* ========= 8. Logout Button ========= */
+        .logout-btn {
+            background: transparent;
+            color: #fecaca;
+            border: 1px solid rgba(248, 113, 113, 0.7);
+            padding: 0.5rem 1.1rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            transition: all 0.25s ease;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(to right, #ef4444, #dc2626);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.45);
+            transform: translateY(-1px);
+        }
+
+        /* 1. Page Background & Layout */
+        body {
+            background-color: #064e3b; /* Deep Emerald */
+            color: #ecfdf5;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-msg {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #fbbf24; /* Gold */
+            text-align: center;
+        }
+
+        /* 2. Responsive Pro Grid */
+        .post-grid {
+            display: grid;
+            /* This line creates the "Auto-Grid" - no media queries needed for columns! */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* 3. Post Card Styling */
+        .post-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #022c22;
+            border: 1px solid #059669;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 1 / 1; /* Keeps posts perfectly square */
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            border-color: #fbbf24;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.1); /* Subtle zoom effect */
+        }
+
+        /* 4. Overlay (Dopamine hit: shows title on hover) */
+        .post-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(2, 44, 34, 0.9));
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .post-card:hover .post-overlay {
+            opacity: 1;
+        }
+
+        .post-title {
+            color: #fbbf24;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }

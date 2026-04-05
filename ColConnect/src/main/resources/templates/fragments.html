@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar">
+        <ul class="nav-left">
+            <li><a th:href="@{/homepage}">HOME</a></li>
+            <li>
+                <a sec:authorize="isAuthenticated()" th:href="@{/profile/me}">
+                    PROFILE
+                </a>
+            </li>
+            <li><a th:href="@{/uploadPost}">POST</a></li>
+        </ul>
+
+        <ul class="nav-right">
+            <li class="welcome-text" sec:authorize="isAuthenticated()">
+                Welcome <span class="username-highlight" sec:authentication="name">Guest</span>
+            </li>
+
+            <li th:if="${currentUser != null}">
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="logout-btn">LOGOUT</button>
+                </form>
+            </li>
+
+            <li th:if="${currentUser == null}"><a th:href="@{/login}">LOGIN</a></li>
+            <li th:if="${currentUser == null}"><a th:href="@{/register}">JOIN</a></li>
+
+            <li class="search-wrapper">
+                <input type="text" placeholder="Search creators..." id="search" autocomplete="off">
+                <ul id="results"></ul>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        const input = document.getElementById("search");
+        const results = document.getElementById("results");
+        let timeout = null;
+
+        input.addEventListener("input", function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                const query = input.value;
+                if (query.length === 0) {
+                    results.innerHTML = "";
+                    return;
+                }
+                fetch(`/searchProfile?q=${query}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        results.innerHTML = "";
+                        data.forEach(user => {
+                            results.innerHTML += `<li>
+                                <a href="/profile/${user.id}">${user.username}</a>
+                            </li>`;
+                        });
+                    });
+            }, 300);
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!input.contains(e.target)) results.innerHTML = "";
+        });
+    </script>
+</div>
+</body>
+</html>

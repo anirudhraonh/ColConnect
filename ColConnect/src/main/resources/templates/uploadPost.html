@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload a post</title>
+
+    <style>
+        h3{
+        color:text;
+        }
+        textarea{
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+<!-- Include navbar fragment -->
+<div th:replace="fragments :: navbar"></div>
+
+    <h1>Make a post!</h1>
+    <h3 th:text="${error}"></h3>
+    <form th:action="@{/uploadPost}" method="post" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Title" required><br>
+        <input type="file" name="image" accept="image/*" placeholder="Got a relevant Image?"><br>
+        <textarea name="text" placeholder="Write something..." ></textarea><br>
+
+        <button type="submit">Post</button>
+    </form>
+
+</body>
+</html>

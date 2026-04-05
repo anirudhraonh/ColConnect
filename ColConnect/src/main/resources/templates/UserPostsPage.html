@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.name} + 'posts'"></title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+
+</head>
+<body>
+<!-- Include navbar fragment -->
+<div th:replace="fragments :: navbar"></div>
+
+  <h1 th:text="|${user.name}'s posts|"></h1>
+  <h2>Posts (<span th:text="${user.posts.size()}"></span>)</h2>
+
+  <div th:if="${user.posts == null or #lists.isEmpty(user.posts)}">
+    <p>No posts yet.</p>
+  </div>
+
+
+  <!-- Show user's posts -->
+  <div th:if="${user.posts != null and !#lists.isEmpty(user.posts)}" style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <a th:each="post : ${user.posts}"
+       th:href="@{/post/{title}(title=${post.title})}"
+       style="text-decoration: none;">
+      <img th:src="${post.image_url}" alt=" (Post) "
+           style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    </a>
+  </div>
+
+
+</body>
+</html>

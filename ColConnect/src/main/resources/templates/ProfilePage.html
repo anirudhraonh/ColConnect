@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${user.name} + ' Profile'">User Profile</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <style>
+    /* ========= Page Base ========= */
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top, #065f46, #022c22 65%);
+      margin: 0;
+      padding: 0;
+      color: #ecfdf5;
+    }
+
+    /* ========= Container ========= */
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: rgba(2, 44, 34, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 32px 36px;
+      border-radius: 18px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    /* ========= Headings ========= */
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #fbbf24;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 35px;
+      margin-bottom: 18px;
+      color: #a7f3d0;
+      border-bottom: 1px solid rgba(16, 185, 129, 0.4);
+      padding-bottom: 6px;
+    }
+
+    /* ========= Messages ========= */
+    .error-msg {
+      text-align: center;
+      color: #fca5a5;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+
+    .msg {
+      text-align: center;
+      color: #6ee7b7;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+
+    /* ========= Profile Image ========= */
+    .profile-img {
+      display: block;
+      margin: 22px auto 28px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #059669;
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.45),
+        0 0 0 4px rgba(251, 191, 36, 0.15);
+    }
+
+    /* ========= Info Section ========= */
+    .info {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .info p {
+      font-size: 0.95rem;
+      margin: 10px 0;
+      color: #d1fae5;
+    }
+
+    .info strong {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    /* ========= Interests ========= */
+    .interests span {
+      display: inline-block;
+      background: rgba(6, 78, 59, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #ecfdf5;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin: 6px 6px 0 0;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .interests span:hover {
+      background: rgba(6, 95, 70, 0.95);
+      color: #fbbf24;
+    }
+
+    /* ========= Actions ========= */
+    .actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    /* ========= Buttons ========= */
+    a.button {
+      display: inline-block;
+      margin: 10px 8px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #fbbf24, #facc15);
+      color: #022c22;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      transition: all 0.25s ease;
+    }
+
+    a.button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(251, 191, 36, 0.45);
+    }
+
+    /* ========= Responsive ========= */
+    @media (max-width: 600px) {
+      .container {
+        margin: 25px 16px;
+        padding: 26px 22px;
+      }
+
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+
+</head>
+<body>
+<!-- Include navbar fragment -->
+<div th:replace="fragments :: navbar"></div>
+
+<div class="container">
+
+  <h1 th:text="${user.name} + '\'s Profile'"></h1>
+
+  <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+  <div th:if="${msg}" class="msg" th:text="${msg}"></div>
+
+  <img class="profile-img" th:src="@{${user.profilePicture_url}}" alt="Image not found">
+
+  <div class="info">
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>College:</strong> <span th:text="${user.college}"></span></p>
+    <p><strong>Department:</strong> <span th:text="${user.dept}"></span></p>
+    <p><strong>Interests:</strong>
+      <span class="interests" th:each="interest : ${user.interests}" th:text=" ' ' +${interest}"></span>
+    </p>
+  </div>
+
+  <h2>Posts (<span th:text="${user.posts.size()}"></span>)</h2>
+
+  <div class="actions">
+    <a th:href="@{/userposts/{user_id}(user_id=${user.id})}" class="button"
+       th:text="'Show ' + ${user.name} + '\'s posts'"></a>
+
+    <div th:if="${currentUser.id == user.id}">
+      <a th:href="@{/updateProfile/{id}(id=${user.id})}" class="button">Update profile</a>
+    </div>
+
+    <div th:unless="${currentUser.id == user.id}">
+      <a th:href="@{/chat}" class="button">message</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

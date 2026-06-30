@@ -109,12 +109,12 @@ public class SocialsController {
     }
 
     //POST'S INFORMATION PAGE
-    @GetMapping("/post/{title}")
-    public String postPage(@PathVariable String title, Model model) {
+    @GetMapping("/post/{id}")
+    public String postPage(@PathVariable Long id, Model model) {
 
         Post post = null;
 
-        post = postsRepository.findByTitle(title);
+        post = postsRepository.findById(id).orElse(null);
 
         if (post == null) {
             String error = "*********** failed to fetch the post from repo**************";
@@ -234,8 +234,8 @@ public class SocialsController {
     }
 
     // DELETE POST
-    @PostMapping("/delete/{title}")
-    public String deletePost(@PathVariable String title,
+    @PostMapping("/delete/{id}")
+    public String deletePost(@PathVariable Long id,
                              Principal principal,
                              RedirectAttributes redirectAttributes) {
 
@@ -247,7 +247,7 @@ public class SocialsController {
         }
 
         // Check if post exists
-        Post post = postsRepository.findByTitle(title);
+        Post post = postsRepository.findById(id).orElse(null);
         if (post == null) {
             redirectAttributes.addFlashAttribute("error", "Post not found");
             return "redirect:/profile/" + currentUser.getId();
@@ -257,12 +257,12 @@ public class SocialsController {
         if (!Objects.equals(currentUser.getId(), post.getUser().getId())) {
             redirectAttributes.addFlashAttribute("error",
                     "You don't have permission to delete this post. You are NOT the author of this post!");
-            return "redirect:/post/" + title;
+            return "redirect:/post/" + id;
         }
 
         // Delete the post
         try {
-            postsRepository.deleteById(title);
+            postsRepository.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Couldn't delete the post!");
@@ -337,19 +337,19 @@ public class SocialsController {
 
         postsRepository.save(post);
         redirectAttributes.addFlashAttribute("success", "Post uploaded.");
-        return "redirect:/post/" + title;
+        return "redirect:/post/" + post.getId();
 
     }
 
     //Comment post feature:
-    @PostMapping("/postComment/{title}")
-    public String postComment(@PathVariable String title, @ModelAttribute CommentDTO commentDTO, RedirectAttributes redirectAttributes, Principal principal) {
+    @PostMapping("/postComment/{id}")
+    public String postComment(@PathVariable Long id, @ModelAttribute CommentDTO commentDTO, RedirectAttributes redirectAttributes, Principal principal) {
         //get comment
         String commentString = commentDTO.getComment();
         // comment check
         if (commentString.isBlank()) {
             redirectAttributes.addFlashAttribute("error", "You cant post empty comment");
-            return "redirect:/post/" + title;
+            return "redirect:/post/" + id;
         }
 
         // get currentUser
@@ -357,11 +357,17 @@ public class SocialsController {
         // check user
         if (currentUser == null) {
             redirectAttributes.addFlashAttribute("error", "Login to comment");
-            return "redirect:/post/" + title;
+            return "redirect:/post/" + id;
         }
 
         // get and set post
-        Post post = postsRepository.findByTitle(title);
+        Post post = postsRepository.findById(id).orElse(null);
+        
+        // Check if post exists
+        if (post == null) {
+            redirectAttributes.addFlashAttribute("error", "Post not found");
+            return "redirect:/homepage";
+        }
 
         Comment comment = new Comment();
         comment.setComment(commentString);
@@ -371,7 +377,7 @@ public class SocialsController {
         commentRepository.save(comment);
 
         redirectAttributes.addFlashAttribute("success", "Comment added.");
-        return "redirect:/post/" + title;
+        return "redirect:/post/" + id;
 
     }
 

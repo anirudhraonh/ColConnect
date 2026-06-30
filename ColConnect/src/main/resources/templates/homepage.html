@@ -21,7 +21,7 @@
 <div th:text="${msg}"></div>
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <div th:each="post : ${posts}">
-        <a th:href="@{/post/{title}(title=${post.title})}" style="text-decoration: none;">
+            <a th:href="@{/post/{id}(id=${post.id})}" style="text-decoration: none;">
             <img th:src="@{${post.image_url}}" alt="Post image"
                  style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
         </a>

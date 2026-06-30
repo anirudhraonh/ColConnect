@@ -1,281 +1,637 @@
+/* ============================================================================
+   COLCONNECT - MAIN CSS (DARK THEME)
+   Clean, conflict-free styling for all pages
+   ============================================================================ */
 
-        /* ========= 1. Global Reset & Theme ========= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
+/* ============= GLOBAL RESET & THEME ============= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            background: radial-gradient(circle at top, #065f46, #022c22 60%);
-            color: #ecfdf5;
-        }
+html,
+body {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 50%, #0d1520 100%);
+    color: #e0e7ff;
+    line-height: 1.6;
+    min-height: 100vh;
+}
 
-        /* ========= 2. Navbar (Glass + Depth) ========= */
-        .navbar {
-            background: linear-gradient(
-                to right,
-                rgba(2, 44, 34, 0.92),
-                rgba(6, 78, 59, 0.92)
-            );
-            backdrop-filter: blur(10px);
-            padding: 0.9rem 2.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.35);
-            box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.45),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.03);
-        }
+/* ============= NAVBAR ============= */
+.navbar {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    overflow: hidden;
+}
 
-        /* ========= 3. Layout ========= */
-        .nav-left,
-        .nav-right {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
+.nav-left,
+.nav-right {
+    display: flex;
+    list-style: none;
+    gap: 0.75rem;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: auto;
+}
 
-        .nav-left {
-            gap: 1.2rem;
-        }
+.navbar a {
+    color: #c7d2fe;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
 
-        .nav-right {
-            gap: 1.6rem;
-        }
+.navbar a:hover {
+    color: #ffffff;
+    background: rgba(99, 102, 241, 0.1);
+}
 
-        /* ========= 4. Nav Links ========= */
-        .navbar a {
-            position: relative;
-            text-decoration: none;
-            color: #d1fae5;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-            padding: 0.55rem 0.9rem;
-            border-radius: 6px;
-            transition: all 0.25s ease;
-        }
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
 
-        /* underline glow */
-        .navbar a::after {
-            content: "";
-            position: absolute;
-            left: 12%;
-            right: 12%;
-            bottom: 4px;
-            height: 2px;
-            background: linear-gradient(to right, #fbbf24, #facc15);
-            transform: scaleX(0);
-            transition: transform 0.25s ease;
-            border-radius: 2px;
-        }
+.navbar a:hover::after {
+    width: 80%;
+}
 
-        .navbar a:hover {
-            color: #fbbf24;
-            background: rgba(251, 191, 36, 0.08);
-        }
+/* ============= WELCOME TEXT ============= */
+.welcome-text {
+    font-size: 0.8rem;
+    color: #a5b4fc;
+    opacity: 0.9;
+    white-space: nowrap;
+    margin: 0;
+}
 
-        .navbar a:hover::after {
-            transform: scaleX(1);
-        }
+.username-highlight {
+    color: #fbbf24;
+    font-weight: 700;
+}
 
-        /* ========= 5. Welcome Text ========= */
-        .welcome-text {
-            font-size: 0.8rem;
-            color: #6ee7b7;
-            opacity: 0.9;
-        }
+/* ============= SEARCH ============= */
+.search-wrapper {
+    position: relative;
+    width: 180px;
+    flex-shrink: 0;
+}
 
-        .username-highlight {
-            color: #fbbf24;
-            font-weight: 700;
-        }
+#search {
+    width: 100%;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    color: #e0e7ff;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
 
-        /* ========= 6. Search ========= */
-        .search-wrapper {
-            position: relative;
-            width: 240px;
-        }
+#search::placeholder {
+    color: #94a3b8;
+}
 
-        #search {
-            width: 100%;
-            background: rgba(6, 78, 59, 0.7);
-            border: 1px solid rgba(16, 185, 129, 0.5);
-            padding: 0.6rem 1rem;
-            border-radius: 999px;
-            color: #ecfdf5;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
+#search:focus {
+    outline: none;
+    background: rgba(30, 41, 59, 0.95);
+    border-color: #6366f1;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+}
 
-        #search::placeholder {
-            color: #a7f3d0;
-            opacity: 0.7;
-        }
+/* ============= SEARCH RESULTS ============= */
+#results {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
 
-        #search:focus {
-            outline: none;
-            width: 300px;
-            border-color: #fbbf24;
-            background: rgba(6, 78, 59, 0.9);
-            box-shadow:
-                0 0 0 2px rgba(251, 191, 36, 0.15),
-                0 10px 30px rgba(0, 0, 0, 0.35);
-        }
+#results li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+    transition: all 0.2s ease;
+}
 
-        /* ========= 7. Search Results ========= */
-        #results {
-            position: absolute;
-            top: 115%;
-            right: 0;
-            width: 100%;
-            background: rgba(2, 44, 34, 0.95);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(5, 150, 105, 0.6);
-            border-radius: 12px;
-            list-style: none;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55);
-            max-height: 260px;
-            overflow-y: auto;
-            z-index: 1001;
-        }
+#results li a:hover {
+    background: rgba(99, 102, 241, 0.15);
+    color: #ffffff;
+    padding-left: 1.3rem;
+}
 
-        /* scrollbar */
-        #results::-webkit-scrollbar {
-            width: 6px;
-        }
+#results li:last-child a {
+    border-bottom: none;
+}
 
-        #results::-webkit-scrollbar-thumb {
-            background: #059669;
-            border-radius: 10px;
-        }
+/* ============= LOGOUT BUTTON ============= */
+.logout-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    padding: 0.5rem 0.9rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
 
-        #results li a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #d1fae5;
-            font-size: 0.8rem;
-            border-bottom: 1px solid rgba(6, 95, 70, 0.7);
-            transition: all 0.2s ease;
-        }
+.logout-btn:hover {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
 
-        #results li:last-child a {
-            border-bottom: none;
-        }
+/* ============= LAYOUT ============= */
+.main-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
 
-        #results li a:hover {
-            background: rgba(6, 95, 70, 0.8);
-            color: #fbbf24;
-            padding-left: 1.3rem;
-        }
+/* ============= HEADINGS ============= */
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 2rem 0 1rem;
+    text-align: center;
+}
 
-        /* ========= 8. Logout Button ========= */
-        .logout-btn {
-            background: transparent;
-            color: #fecaca;
-            border: 1px solid rgba(248, 113, 113, 0.7);
-            padding: 0.5rem 1.1rem;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            transition: all 0.25s ease;
-        }
+h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #e0e7ff;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+}
 
-        .logout-btn:hover {
-            background: linear-gradient(to right, #ef4444, #dc2626);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.45);
-            transform: translateY(-1px);
-        }
+h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 1rem 0 0.75rem;
+}
 
-        /* 1. Page Background & Layout */
-        body {
-            background-color: #064e3b; /* Deep Emerald */
-            color: #ecfdf5;
-            margin: 0;
-            padding: 0;
-            font-family: 'Outfit', sans-serif;
-        }
+/* ============= PARAGRAPHS & TEXT ============= */
+p {
+    color: #cbd5e1;
+    margin: 1rem 0;
+    line-height: 1.7;
+}
 
-        .main-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+a {
+    color: #6366f1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-        .welcome-msg {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            color: #fbbf24; /* Gold */
-            text-align: center;
-        }
+a:hover {
+    color: #818cf8;
+    text-decoration: underline;
+}
 
-        /* 2. Responsive Pro Grid */
-        .post-grid {
-            display: grid;
-            /* This line creates the "Auto-Grid" - no media queries needed for columns! */
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-        }
+strong {
+    color: #f1f5f9;
+    font-weight: 700;
+}
 
-        /* 3. Post Card Styling */
-        .post-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            background: #022c22;
-            border: 1px solid #059669;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            aspect-ratio: 1 / 1; /* Keeps posts perfectly square */
-        }
+/* ============= MESSAGES ============= */
+.success,
+.error {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
 
-        .post-card:hover {
-            transform: translateY(-8px);
-            border-color: #fbbf24;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-        }
+.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #86efac;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
 
-        .post-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
+.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
 
-        .post-card:hover .post-image {
-            transform: scale(1.1); /* Subtle zoom effect */
-        }
+/* ============= FORMS ============= */
+form {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
 
-        /* 4. Overlay (Dopamine hit: shows title on hover) */
-        .post-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(2, 44, 34, 0.9));
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+/* ============= AUTH CARD (login/register small utilities) ============= */
+.auth-card {
+    background: rgba(12, 14, 23, 0.75);
+    border: 1px solid rgba(99, 102, 241, 0.06);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(2,6,23,0.45);
+}
 
-        .post-card:hover .post-overlay {
-            opacity: 1;
-        }
+.auth-card .form-group {
+    margin-bottom: 1rem;
+}
 
-        .post-title {
-            color: #fbbf24;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 0;
-        }
+.auth-card label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"],
+.auth-card textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.12);
+    background: rgba(15, 23, 42, 0.6);
+    color: #e0e7ff;
+    font-size: 0.95rem;
+    transition: all 0.18s ease;
+}
+
+.auth-card input:focus,
+.auth-card textarea:focus {
+    outline: none;
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.6);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.28);
+}
+
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #cbd5e1;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    color: #e0e7ff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748b;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ============= BUTTONS ============= */
+input[type="submit"],
+button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+input[type="submit"]:active,
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Delete button */
+.delete-btn,
+button[style*="color:red"] {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: #fca5a5 !important;
+    border: 1px solid rgba(239, 68, 68, 0.5) !important;
+    width: auto !important;
+    margin-top: 0 !important;
+}
+
+.delete-btn:hover,
+button[style*="color:red"]:hover {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    color: white !important;
+    border-color: transparent !important;
+}
+
+/* ============= POSTS GRID ============= */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.post-card,
+img[alt="Post image"] {
+    border-radius: 12px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.post-card:hover,
+img[alt="Post image"]:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+img[alt="Post image"] {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+/* ============= COMMENTS ============= */
+ul {
+    list-style: none;
+}
+
+ul li {
+    background: rgba(30, 41, 59, 0.6);
+    border-left: 3px solid #6366f1;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    color: #cbd5e1;
+}
+
+ul li strong {
+    color: #f1f5f9;
+}
+
+small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+/* ============= POST CONTAINER ============= */
+.post-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.post-content {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.post-image {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    object-fit: cover;
+    margin: 1.5rem 0;
+}
+
+.post-metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* ============= COMMENT FORM ============= */
+.comment-form {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.comment-form input {
+    flex: 1;
+}
+
+.comment-form input[type="submit"] {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    margin-top: 0;
+}
+
+/* ============= DIVIDERS ============= */
+hr {
+    border: none;
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    margin: 2rem 0;
+}
+
+/* ============= RESPONSIVE ============= */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .nav-left,
+    .nav-right {
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    form {
+        max-width: 100%;
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .search-wrapper {
+        width: 100%;
+        order: 3;
+    }
+
+    .post-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .post-metadata {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .comment-form {
+        flex-direction: column;
+    }
+
+    .comment-form input[type="submit"] {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .navbar a {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .welcome-text {
+        display: none;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+        margin: 1rem 0 0.75rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    form {
+        padding: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px;
+    }
+
+    .post-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .post-content {
+        padding: 1rem;
+    }
+}

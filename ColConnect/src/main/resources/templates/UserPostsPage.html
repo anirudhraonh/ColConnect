@@ -2,8 +2,10 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${user.name} + 'posts'"></title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 
 </head>
 <body>
@@ -21,7 +23,7 @@
   <!-- Show user's posts -->
   <div th:if="${user.posts != null and !#lists.isEmpty(user.posts)}" style="display: flex; flex-wrap: wrap; gap: 10px;">
     <a th:each="post : ${user.posts}"
-       th:href="@{/post/{title}(title=${post.title})}"
+       th:href="@{/post/{id}(id=${post.id})}"
        style="text-decoration: none;">
       <img th:src="${post.image_url}" alt=" (Post) "
            style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">

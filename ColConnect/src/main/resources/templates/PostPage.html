@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <script>
     function confirmDelete() {
@@ -11,163 +13,87 @@
   </script>
 
   <style>
-    /* ========= Page Base ========= */
-    body {
-      font-family: 'Outfit', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #065f46, #022c22 65%);
-      color: #ecfdf5;
-    }
-
-    /* ========= Headings (POST ONLY) ========= */
-    body > h1:not(nav *),
-    body > h2:not(nav *),
-    body > h3:not(nav *) {
+    .post-container {
       max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
     }
 
-    h1 {
-      margin-top: 40px;
-      text-align: center;
-      color: #fbbf24;
-      font-size: 2rem;
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
 
-    h2 {
-      margin-top: 30px;
-      color: #a7f3d0;
-      border-bottom: 1px solid rgba(16, 185, 129, 0.4);
-      padding-bottom: 6px;
+    .post-title-section {
+      flex: 1;
+      min-width: 300px;
     }
 
-    h3 {
-      margin-top: 30px;
-      color: #fbbf24;
+    .post-title-section h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(99, 102, 241, 0.3);
     }
 
-    /* ========= Divider ========= */
-    hr {
-      max-width: 900px;
-      margin: 20px auto;
-      border: none;
-      border-top: 1px solid rgba(16, 185, 129, 0.35);
+    .post-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(99, 102, 241, 0.05);
+      border-radius: 8px;
     }
 
-    /* ========= Messages ========= */
-    p[style*="color:red"] {
-      color: #fca5a5 !important;
-      font-weight: 600;
-      max-width: 900px;
-      margin: 10px auto;
-    }
-
-    p[style*="color:green"] {
-      color: #6ee7b7 !important;
-      font-weight: 600;
-      max-width: 900px;
-      margin: 10px auto;
-    }
-
-    /* ========= Post Metadata ========= */
-    body > p:not(nav *) {
-      max-width: 900px;
-      margin: 10px auto;
-      color: #d1fae5;
-    }
-
-    body > p strong {
-      color: #fbbf24;
-    }
-
-    /* ========= Post Image ========= */
-    body > img:not(nav *) {
-      display: block;
-      max-width: 900px;
-      width: 100%;
-      margin: 20px auto;
-      border-radius: 14px;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.45);
-    }
-
-    /* ========= Post Text ========= */
-    p[th\\:text] {
-      max-width: 900px;
-      margin: 18px auto;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: #d1fae5;
-    }
-
-    /* ========= Forms (POST AREA ONLY) ========= */
-    body > form:not(nav *) {
-      max-width: 900px;
-      margin: 14px auto;
-    }
-
-    /* Comment Input */
-    body > div form input[type="text"] {
-      width: 100%;
-      max-width: 600px;
-      padding: 0.7rem 0.9rem;
-      background: rgba(6, 78, 59, 0.8);
-      border: 1px solid rgba(16, 185, 129, 0.5);
-      border-radius: 10px;
-      color: #ecfdf5;
-    }
-
-    /* Submit Buttons (POST ONLY) */
-    body > div form input[type="submit"],
-    body > form button[type="submit"] {
-      margin-top: 10px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(to right, #fbbf24, #facc15);
-      color: #022c22;
-      font-weight: 700;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
-
-    /* Delete Button */
-    body > form button[style*="color:red"] {
+    .delete-form {
+      display: inline-block;
       background: none;
-      color: #fca5a5 !important;
-      border: 1px solid rgba(248, 113, 113, 0.6);
-      padding: 6px 14px;
-      border-radius: 999px;
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      max-width: none;
+      margin: 0;
     }
 
-    /* ========= Comments ========= */
-    body > div ul {
-      max-width: 900px;
-      margin: 15px auto;
-      list-style: none;
-      padding-left: 0;
+    .delete-form button {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
-    body > div ul li {
-      background: rgba(2, 44, 34, 0.85);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      margin-bottom: 10px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      color: #d1fae5;
+    .delete-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
     }
 
-    body > div ul li strong {
-      color: #fbbf24;
-    }
-
-    small {
+    img {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
       display: block;
-      margin-top: 4px;
-      color: #6ee7b7;
-      font-size: 0.7rem;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .post-content {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
     }
   </style>
 
@@ -176,61 +102,67 @@
 <!-- Include navbar fragment -->
 <div th:replace="fragments :: navbar"></div>
 
-<h1>Welcome to Post Page</h1>
-<hr>
+<div class="post-container">
+  <h1>Welcome to Post Page</h1>
+  <hr>
 
-<h2 th:text="${post.title}"></h2>
+  <!-- Display success or error messages -->
+  <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+  <p style="color:green;" th:if="${success}" th:text="${success}"></p>
 
-<!-- Display success or error messages -->
-<p style="color:red;" th:if="${error}" th:text="${error}"></p>
-<p style="color:green;" th:if="${success}" th:text="${success}"></p>
+  <div class="post-header">
+    <div class="post-title-section">
+      <h2 th:text="${post != null ? post.title : 'Post Not Found'}"></h2>
+    </div>
+    <!-- Delete form only if current user is author -->
+    <form th:if="${post != null and currentUser != null and currentUser.id == post.user.id}"
+          th:action="@{/delete/{id}(id=${post.id})}"
+          method="post"
+          onsubmit="return confirmDelete();"
+          class="delete-form">
+      <input type="hidden" name="_method" value="DELETE"/>
+      <button type="submit">Delete Post</button>
+    </form>
+  </div>
 
-<!-- Delete form only if current user is author -->
-<form th:if="${currentUser != null and currentUser.id == post.user.id}"
-      th:action="@{/delete/{title}(title=${post.title})}"
-      method="post"
-      onsubmit="return confirmDelete();"
-      style="display:inline;">
-  <input type="hidden" name="_method" value="DELETE"/>
-  <button type="submit"
-          style="color:red; padding:5px; border:none; background:none; cursor:pointer; border-radius:5px;">
-    Delete Post
-  </button>
-</form>
+  <div th:if="${post != null}">
+    <div class="post-meta">
+      <p>
+        <strong>Posted by:</strong>
+        <a th:href="@{/profile/{id}(id=${post.user.id})}" th:text="${post.user.name}"></a>
+      </p>
 
-<p>
-  <strong>Posted by:</strong>
-  <a th:href="@{/profile/{id}(id=${post.user.id})}" th:text="${post.user.name}"></a>
-</p>
+      <p>
+        <strong>Posted on:</strong>
+        <span th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy HH:mm')}"></span>
+      </p>
+    </div>
 
-<p>
-  <strong>Posted on:</strong>
-  <span th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy HH:mm')}"></span>
-</p>
+    <!-- Show post image -->
+    <img th:if="${post.image_url != null}" th:src="@{${post.image_url}}" alt="Post image">
 
-<!-- Show post image -->
-<img th:if="${post.image_url != null}" th:src="@{${post.image_url}}" alt="Post image">
+    <div class="post-content" th:text="${post.text}"></div>
+  </div>
 
-<p th:text="${post.text}"></p>
+  <!-- Comment Form -->
+  <div th:if="${post != null and currentUser != null}">
+    <form th:action="@{/postComment/{id}(id=${post.id})}" method="post">
+      <input type="text" name="comment" placeholder="Leave a comment">
+      <input type="submit" value="Post">
+    </form>
+  </div>
 
-<!-- Comment Form -->
-<div th:if="${currentUser != null}">
-  <form th:action="@{/postComment/{title}(title=${post.title})}" method="post">
-    <input type="text" name="comment" placeholder="Leave a comment">
-    <input type="submit" value="Post">
-  </form>
-</div>
-
-<!-- Comments Section -->
-<div th:if="${post.commentList != null and !post.commentList.isEmpty()}">
-  <h3>Comments</h3>
-  <ul>
-    <li th:each="comment : ${post.commentList}">
-      <a th:href="@{/profile/{id}(id=${comment.user.id})}"><strong th:text="${comment.user.name}"></strong></a>:
-      <span th:text="${comment.comment}"></span>
-      <small th:text="${#temporals.format(comment.commentTimestamp, 'dd MMM yyyy HH:mm')}"></small>
-    </li>
-  </ul>
+  <!-- Comments Section -->
+  <div th:if="${post != null and post.commentList != null and !post.commentList.isEmpty()}">
+    <h3>Comments</h3>
+    <ul>
+      <li th:each="comment : ${post.commentList}">
+        <a th:href="@{/profile/{id}(id=${comment.user.id})}"><strong th:text="${comment.user.name}"></strong></a>:
+        <span th:text="${comment.comment}"></span>
+        <small th:text="${#temporals.format(comment.commentTimestamp, 'dd MMM yyyy HH:mm')}"></small>
+      </li>
+    </ul>
+  </div>
 </div>
 
 </body>

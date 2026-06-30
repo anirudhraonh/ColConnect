@@ -13,7 +13,11 @@ import java.util.List;
 @Entity
 public class Post {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    
     String title;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
@@ -22,7 +26,7 @@ public class Post {
     String image_url;
     LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     List<Comment> commentList;
 
 

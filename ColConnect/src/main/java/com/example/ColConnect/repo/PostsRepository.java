@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostsRepository extends JpaRepository<Post,String> {
+public interface PostsRepository extends JpaRepository<Post, Long> {
     List<Post> findTop10ByOrderByCreatedAtDesc();
     Post findByTitle(String title);
 }
